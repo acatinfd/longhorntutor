@@ -6,7 +6,6 @@ class LonghornUser(ndb.Model):
     email = ndb.StringProperty()
     picture = ndb.BlobProperty()
     tutor_rating = ndb.FloatProperty()
-    stu_rating = ndb.FloatProperty()
     intro = ndb.StringProperty()
     join_time = ndb.DateTimeProperty(auto_now_add=True)
 
