@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-class LonghornUser(ndb.Model):
+class UserInfo(ndb.Model):
     user_id = ndb.StringProperty()
     name = ndb.StringProperty()
     email = ndb.StringProperty()
@@ -11,4 +11,4 @@ class LonghornUser(ndb.Model):
 
     @classmethod
     def query_by_id(cls, user_id):
-        return LonghornUser.query(LonghornUser.user_id == user_id)
+        return UserInfo.query(UserInfo.user_id == user_id)
