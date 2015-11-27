@@ -25,3 +25,12 @@ class OrderUser(ndb.Model):
     @classmethod
     def query_by_order_id(cls, order_id):
         return OrderUser.query(OrderUser.order_id == order_id)
+
+    def query_by_user_and_order(cls, user_id, order_id):
+        orders = OrderUser.query_by_order_id(order_id)
+
+        if (orders is not None and len(orders) != 0):
+            for od in orders:
+                if od.user_id == user_id:
+                    return od
+        return None

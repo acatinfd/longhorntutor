@@ -15,12 +15,10 @@ class InviteTutor(webapp2.RequestHandler):
         order = Order.query_by_id(order_id)
         if order is not None:
             #check if already invited
-            existOrderInvites = OrderUser.query_by_order_id(order_id)
-            if (existOrderInvites is not None):
-                for invite in existOrderInvites:
-                    if invite.user_id == user_id:
-                        self.response.write(json.dumps({'status_code': 0}))
-                        return
+            existOrder = OrderUser.query_by_user_and_order(user_id, order_id)
+            if (existOrder is not None):
+                self.response.write(json.dumps({'status_code': 0}))
+                return
 
             #create an invitation
             invitation = OrderUser(user_id=user_id, order_id=order_id, \
