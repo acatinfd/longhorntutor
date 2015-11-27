@@ -12,8 +12,14 @@ libraries:
 # Handlers match in order, put above the default handler.
 handlers:
 
-- url: /assets
-  static_dir: assets
+- url: /css
+  static_dir: templates/css
+
+- url: /js
+  static_dir: templates/js
+
+- url: /fonts
+  static_dir: templates/fonts
 
 - url: /.*
   script: main.app

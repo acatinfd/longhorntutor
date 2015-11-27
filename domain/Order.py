@@ -18,3 +18,7 @@ class Order(ndb.Model):
     @classmethod
     def query_by_owner_id(cls, student_id):
         return Order.query(Order.owner_id == student_id)
+
+    @classmethod
+    def query_by_id(cls, order_id):
+        return cls.get_by_id(order_id)
