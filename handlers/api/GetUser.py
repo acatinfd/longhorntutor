@@ -1,5 +1,5 @@
 import webapp2
-import json, time
+import json
 from domain.UserInfo import UserInfo
 
 class GetUser(webapp2.RequestHandler):
@@ -13,5 +13,5 @@ class GetUser(webapp2.RequestHandler):
             key = user.put()
             user = UserInfo.query_by_id(user_id)
 
-        self.response.write(json.dumps({'name': user.name,\
+        self.response.write(json.dumps({'status_code':0, 'name': user.name,\
          'email': user.email, 'tutor_rating': user.tutor_rating, 'intro':user.intro}))

@@ -1,6 +1,6 @@
 import webapp2
 import json, time
-from domain.LonghornUser import LonghornUser
+from domain.UserInfo import UserInfo
 
 class UpdateUserInfo(webapp2.RequestHandler):
     def post(self):
@@ -9,16 +9,16 @@ class UpdateUserInfo(webapp2.RequestHandler):
         email = self.request.get('email')
         intro = self.request.get('intro_text')
 
-        lhUser = LonghornUser.query_by_id(user_id)
-        if(lhUser):
+        user = UserInfo.query_by_id(user_id)
+        if(user):
             if(name):
-                lhUser.name = name
+                user.name = name
             if(email):
-                lhUser.email = email
+                user.email = email
             if(intro):
-                lhUser.intro = intro
+                user.intro = intro
         else:
-            lhUser = LonghornUser(user_id=user_id, email=email, name=name, intro=intro, tutor_rating=0, picture=null)
+            user = UserInfo(user_id=user_id, email=email, name=name, intro=intro, tutor_rating=0, picture=None)
 
-        key = lhUser.put()
+        key = user.put()
         self.response.write(json.dumps({'status_code': 0, 'key': key.id()}))
