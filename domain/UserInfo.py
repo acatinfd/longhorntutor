@@ -12,3 +12,15 @@ class UserInfo(ndb.Model):
     @classmethod
     def query_by_id(cls, user_id):
         return UserInfo.query(UserInfo.user_id == user_id)
+
+    @classmethod
+    def query_by_keyword(cls, text):
+        r = []
+        if len(text.strip()) == 0:
+            return r
+
+        searchTerm = text.lower()
+        for user in UserInfo.query():
+            if searchTerm in [user.name.lower(), user.email.lower(), user.intro.lower()]:
+                r.append(user)
+        return r

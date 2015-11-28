@@ -1,9 +1,16 @@
 from google.appengine.ext import ndb
 
+"""
+status_code:
+    1: open
+    0: close
+"""
+
 class Notify(ndb.Model):
     from_user = ndb.StringProperty()
     to_user = ndb.StringProperty()
     content = ndb.StringProperty()
+    status_code = ndb.IntegerProperty()
     create_time = ndb.DateTimeProperty(auto_now_add=True)
 
     @classmethod
@@ -23,3 +30,7 @@ class Notify(ndb.Model):
                 if u.to_user == to_user:
                     return u
         return None
+
+    @classmethod
+    def query_by_id(cls, notify_id):
+        return cls.get_by_id(notify_id)
