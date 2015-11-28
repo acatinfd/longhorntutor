@@ -11,7 +11,7 @@ class UserInfo(ndb.Model):
 
     @classmethod
     def query_by_id(cls, user_id):
-        return UserInfo.query(UserInfo.user_id == user_id)
+        return UserInfo.query(UserInfo.user_id == user_id).get()
 
     @classmethod
     def query_by_keyword(cls, text):

@@ -21,5 +21,8 @@ handlers:
 - url: /fonts
   static_dir: templates/fonts
 
+- url: /images
+  static_dir: templates/images
+
 - url: /.*
   script: main.app

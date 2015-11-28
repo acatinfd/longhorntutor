@@ -1,6 +1,9 @@
 import webapp2
 
 from handlers.MainPage import MainPage
+from handlers.Order import Order
+from handlers.Profile import Profile
+
 from handlers.api.AcceptInvite import AcceptInvite
 from handlers.api.AcceptTutor import AcceptTutor
 from handlers.api.CreateNewOrder import CreateNewOrder
@@ -16,9 +19,13 @@ from handlers.api.UpdateUserInfo import UpdateUserInfo
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/api/acceptInvite', AcceptInvite),
-    ('/api/acceptTutor', AcceptTutor),
-    ('/api/createNewOrder', CreateNewOrder),
-    ('/api/dissmissNotify', DismissNotify),
-    ('/api/getMyOrders', GetMyOrders),
+    ('/order', Order),
+    ('/profile', Profile),
+    ('/api/getuser', GetUser),
+    ('/api/acceptinvite', AcceptInvite),
+    ('/api/accepttutor', AcceptTutor),
+    ('/api/createneworder', CreateNewOrder),
+    ('/api/dissmissnotify', DismissNotify),
+    ('/api/getmyorders', GetMyOrders),
+    ('/api/updateuserinfo', UpdateUserInfo)
     ], debug = True)

@@ -9,6 +9,7 @@ class UpdateUserInfo(webapp2.RequestHandler):
         email = self.request.get('email')
         intro = self.request.get('intro_text')
 
+        print '\n\n\n intro is', intro, '\n\n\n'
         user = UserInfo.query_by_id(user_id)
         if(user):
             if(name):
