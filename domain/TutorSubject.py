@@ -23,3 +23,11 @@ class TutorSubject(ndb.Model):
     @classmethod
     def query_by_subject(cls, subject):
         return TutorSubject.query(TutorSubject.subject == subject)
+
+    @classmethod
+    def query_by_tutor_and_subject(cls, tutor_id, subject):
+        all_subjects = TutorSubject.query_by_tutor_id(tutor_id);
+        for s in all_subjects:
+            if s.subject == subject:
+                return s
+        return None
