@@ -9,7 +9,7 @@ API for adding OrderUser relationship
 
 class InviteTutor(webapp2.RequestHandler):
     def post(self):
-        order_id = self.request.get('order_id')
+        order_id = self.request.get('order_id') #tutor id
         user_id = self.request.get('user_id')
 
         order = Order.query_by_id(order_id)

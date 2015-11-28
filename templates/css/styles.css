@@ -19,3 +19,7 @@ footer {
 nav li button {
   margin: 10px 10px;
 }
+
+#search-input {
+  width: 260px;
+}
