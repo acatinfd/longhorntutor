@@ -10,7 +10,7 @@ class GetOrderInfo(webapp2.RequestHandler):
 
         if (order is None):
             self.response.write(json.dumps({'status_code': 1}))
-        else
+        else:
             user = UserInfo.query_by_id(order.owner_id)
             status = "open"
             if (order.status_code == 0):

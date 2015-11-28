@@ -25,5 +25,5 @@ class InviteTutor(webapp2.RequestHandler):
                 status_code=1, order_status=order.status_code)
             key = invitation.put()
             self.response.write(json.dumps({'status_code': 0, 'key': key.id()}))
-        else
+        else:
             self.response.write(json.dumps({'status_code': -1}))

@@ -12,5 +12,5 @@ class GetNewNotify(webapp2.RequestHandler):
             newNotifys = [ {'from_user': no.from_user, 'content': no.content, \
                             'create_time': no.create_time, 'notify_id': no.key.id()} for no in notifys if no.status_code == 1]
             self.response.write(json.dumps({'new_notifys': newNotifys}))
-        else
+        else:
             self.response.write(json.dumps({'new_notifys': []}))
