@@ -5,26 +5,16 @@
 <div class="row">
   <div class="col-md-9">
     <div class="thumbnail">
-        <img class="img-responsive" src="http://placehold.it/900x300" alt="">
         <div class="caption-full">
             <h4 class="pull-right">$24.99</h4>
-            <h4><a href="#">Product Name</a>
+            <h4><a href="#">{{title}}</a>
             </h4>
-            <p>See more snippets like these online store reviews at <a target="_blank" href="http://bootsnipp.com">Bootsnipp - http://bootsnipp.com</a>.</p>
-            <p>Want to make these reviews work? Check out
-                <strong><a href="http://maxoffsky.com/code-blog/laravel-shop-tutorial-1-building-a-review-system/">this building a review system tutorial</a>
-                </strong>over at maxoffsky.com!</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+            <p>{{comment}}</p>
         </div>
         <div class="ratings">
             <p class="pull-right">3 candidates</p>
             <p>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                4.0 stars
+                <b>Student:</b> {{name}}
             </p>
         </div>
     </div>
@@ -82,23 +72,46 @@
     <div class="row">
       <h4>Ask for the Job</h4>
       <div class="col-md-12">
-        <button class="btn btn-primary">Be Tutor</button>
+        {% if not is_applied %}
+        <form action="/api/invitetutor" method="post">
+          <input type="submit" class="btn btn-primary" value="Be Tutor"></input>
+          <input type="hidden" value="{{ user_id }}" name="user_id">
+          <input type="hidden" value="{{ order_id }}" name="order_id">
+          <input type="hidden" value="1" name="self_applied">
+        </form>
+        {% else %}
+        <form action="/api/deleteinvite" method="post">
+          <input type="submit" class="btn btn-warning" value="Cancel Request"></input>
+          <input type="hidden" value="{{ user_id }}" name="user_id">
+          <input type="hidden" value="{{ order_id }}" name="order_id">
+        </form>
+        {% endif %}
       </div>
     </div>
 
     <div class="row">
       <h4>Recommend a Friend</h4>
       <div class="col-md-12">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for...">
-          <span class="input-group-btn">
-            <button class="btn btn-default" type="button">Submit</button>
-          </span>
-        </div><!-- /input-group -->
+        <form action="/api/invitetutor" method="post">
+          <div class="input-group">
+              <input id="searchuser" type="text" class="form-control" placeholder="Search for...">
+              <input id="inviteuser" type="hidden" value="" name="user_id">
+              <input type="hidden" value="{{ order_id }}" name="order_id">
+              <span class="input-group-btn">
+                <input class="btn btn-primary" type="submit" value="Submit"></input>
+              </span>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 
 </div>
 
+{% endblock %}
+
+{% block footer %}
+
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="js/autocomplete.js"></script>
 {% endblock %}

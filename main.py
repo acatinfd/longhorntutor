@@ -7,7 +7,9 @@ from handlers.Profile import Profile
 from handlers.api.AcceptInvite import AcceptInvite
 from handlers.api.AcceptTutor import AcceptTutor
 from handlers.api.CreateNewOrder import CreateNewOrder
+from handlers.api.DeleteInvite import DeleteInvite
 from handlers.api.DismissNotify import DismissNotify
+from handlers.api.GetAllUsers import GetAllUsers
 from handlers.api.GetMyOrders import GetMyOrders
 from handlers.api.GetNewNotify import GetNewNotify
 from handlers.api.GetOrderInfo import GetOrderInfo
@@ -21,11 +23,18 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/order', Order),
     ('/profile', Profile),
-    ('/api/getuser', GetUser),
     ('/api/acceptinvite', AcceptInvite),
     ('/api/accepttutor', AcceptTutor),
     ('/api/createneworder', CreateNewOrder),
-    ('/api/dissmissnotify', DismissNotify),
+    ('/api/deleteinvite', DeleteInvite),
+    ('/api/dismissnotify', DismissNotify),
+    ('/api/getallusers', GetAllUsers),
     ('/api/getmyorders', GetMyOrders),
+    ('/api/getnewnotify', GetNewNotify),
+    ('/api/getorderinfo', GetOrderInfo),
+    ('/api/getpendingorders', GetPendingOrders),
+    ('/api/getuser', GetUser),
+    ('/api/invitetutor', InviteTutor),
+    ('/api/searchuser', SearchUser),
     ('/api/updateuserinfo', UpdateUserInfo)
     ], debug = True)

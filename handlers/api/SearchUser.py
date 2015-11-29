@@ -8,7 +8,7 @@ class SearchUser(webapp2.RequestHandler):
         query = self.request.get('query')
         users = UserInfo.query_by_keyword(query)
 
-        if (users is not None and len(users) != 0):
+        if users is not None:
             usersFound = [ {'user_id': u.user_id, 'name': u.name, \
                         'email': u.email, 'intro': u.intro, 'tutor_rating': u.tutor_rating} \
                         for u in users]

@@ -8,9 +8,9 @@ class GetNewNotify(webapp2.RequestHandler):
         to_user = self.request.get('user_id')
         notifys = Notify.query_by_to_user(to_user)
 
-        if (notifys is not None and len(notifys) != 0):
+        if notifys is not None:
             newNotifys = [ {'from_user': no.from_user, 'content': no.content, \
-                            'create_time': no.create_time, 'notify_id': no.key.id()} for no in notifys if no.status_code == 1]
-            self.response.write(json.dumps({'new_notifys': newNotifys}))
+                            'notify_id': no.key.id(), 'url': no.url} for no in notifys if no.status_code == 1]
+            self.response.write(json.dumps(newNotifys))
         else:
-            self.response.write(json.dumps({'new_notifys': []}))
+            self.response.write(json.dumps([]))

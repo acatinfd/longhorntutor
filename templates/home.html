@@ -6,15 +6,12 @@
     <!-- left side of the page -->
     <div class="col-md-9">
       <div class="notifications">
-        <div class="alert alert-info alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Warning!</strong> Better check yourself, you're not looking too good.
-        </div>
-
-        <div class="alert alert-info alert-dismissible" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <strong>Warning!</strong> Better check yourself, you're not looking too good.
-        </div>
+        {% for p in notifies %}
+          <div class="notify alert alert-info alert-dismissible" data-id="{{p.notify_id}}" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {{p.content}} <a class="alert-link" href={{p.url}}>[More details]</a>
+          </div>
+        {% endfor %}
       </div>
 
       <div class="pending-requests">
@@ -64,25 +61,26 @@
 
     <div class="col-md-3 own-requests">
       <h1>Your Posts</h1>
-      <div>
-        <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x200" alt="">
-        </a>
-        <h3>
-            <a href="#">Project One</a>
-        </h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-      </div>
-      <div>
-        <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x200" alt="">
-        </a>
-        <h3>
-            <a href="#">Project One</a>
-        </h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-      </div>
+      {% for p in orders %}
+        <div>
+          <h3>
+              <a href="/order?order_id={{p.order_id}}">{{p.title}}</a>
+          </h3>
+          <p>{{p.subject}}</p>
+          <small>{{p.comment}}</small>
+          <hr/>
+        </div>
+      {% endfor %}
     </div>
 </div>
 <!-- /.row <--></-->
+{% endblock %}
+
+{% block footer %}
+<script>
+  $('.notify').on('closed.bs.alert', function () {
+    var id = $(this).data('id');
+    $.post('/api/dismissnotify?notify_id='+id);
+  });
+</script>
 {% endblock %}

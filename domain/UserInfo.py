@@ -21,6 +21,7 @@ class UserInfo(ndb.Model):
 
         searchTerm = text.lower()
         for user in UserInfo.query():
-            if searchTerm in [user.name.lower(), user.email.lower(), user.intro.lower()]:
+            if searchTerm in user.name.lower() or searchTerm in user.email.lower() \
+                or searchTerm in user.intro.lower():
                 r.append(user)
         return r

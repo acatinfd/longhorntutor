@@ -8,10 +8,11 @@ class GetMyOrders(webapp2.RequestHandler):
         user_id = self.request.get('user_id')
         orders = Order.query_by_owner_id(user_id)
 
-        if (orders is None or len(orders) == 0):
-            self.response.write(json.dumps({'status_code': 1}))
+        if orders is None:
+            self.response.write(json.dumps([]))
         else:
             myOrders = [{'subject': od.subject, 'title': od.title, \
                         'comment': od.comment, 'status_code': od.status_code,\
+                        'order_id': od.key.id(),\
                         } for od in orders]
-            self.resonse.write(json.dumps(myOrders))
+            self.response.write(json.dumps(myOrders))

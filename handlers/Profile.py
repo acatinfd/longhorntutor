@@ -14,7 +14,6 @@ class Profile(webapp2.RequestHandler):
 
             r = requests.get(base + '/api/getuser', params={'user_id': user.user_id(), 'email': user.email()})
             data = r.json()
-            print '\n\n\n hi john ', data, '\n\n\n'
             template = JINJA_ENVIRONMENT.get_template('profile.html')
             self.response.write(template.render(data))
         else:

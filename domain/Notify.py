@@ -10,6 +10,7 @@ class Notify(ndb.Model):
     from_user = ndb.StringProperty()
     to_user = ndb.StringProperty()
     content = ndb.StringProperty()
+    url = ndb.StringProperty()
     status_code = ndb.IntegerProperty()
     create_time = ndb.DateTimeProperty(auto_now_add=True)
 
@@ -25,7 +26,7 @@ class Notify(ndb.Model):
     def query_by_from_and_to_users(cls, from_user, to_user):
         users = Notify.query_by_from_user(from_user)
 
-        if (users is not None and len(users) != 0):
+        if users is not None:
             for u in users:
                 if u.to_user == to_user:
                     return u
@@ -33,4 +34,4 @@ class Notify(ndb.Model):
 
     @classmethod
     def query_by_id(cls, notify_id):
-        return cls.get_by_id(notify_id)
+        return cls.get_by_id(int(notify_id))
