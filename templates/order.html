@@ -12,62 +12,71 @@
             <p>{{comment}}</p>
         </div>
         <div class="ratings">
-            <p class="pull-right">3 candidates</p>
+            {% if not hasSelectedTutor %}
+              <p class="pull-right">{{ candidates|length }} candidates</p>
+            {% endif %}
             <p>
-                <b>Student:</b> {{name}}
+                <b>Student:</b> {{ name }}
             </p>
+            {% if own_the_order %}
+            <p>
+                <b>Contact:</b> {{ email }}
+            </p>
+            {% endif %}
         </div>
     </div>
 
     <div class="well">
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                Anonymous
-                <button class="btn btn-primary pull-right">Select</button>
-                <p>This product was great in terms of quality. I would definitely buy another!</p>
-            </div>
-        </div>
+      {% if selectedTutor %}
+      <div class="row">
+          <div class="col-md-12">
+            <p><span class="label label-success">{{ selectedTutor['name'] }}</span> is selected as the tutor!</p>
 
-        <hr>
+            {% for i in range(selectedTutor['tutor_rating']) %}
+              <span class="glyphicon glyphicon-star"></span>
+            {% endfor %}
+            {% for i in range(5 - selectedTutor['tutor_rating']) %}
+              <span class="glyphicon glyphicon-star-empty"></span>
+            {% endfor %}
 
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                Anonymous
-                <button class="btn btn-primary pull-right">Select</button>
-                <p>I've alredy ordered another one!</p>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star"></span>
-                <span class="glyphicon glyphicon-star-empty"></span>
-                Anonymous
-                <button class="btn btn-primary pull-right">Select</button>
-                <p>I've seen some better than this, but not at this price. I definitely recommend this item.</p>
-            </div>
-        </div>
-
+            <p>{{ selectedTutor['intro'] }}</p>
+            {% if own_the_order %}
+            <p>
+                <b>Contact:</b> {{ email }}
+            </p>
+            {% endif %}
+          </div>
+      </div>
+      <hr>
+      {% elif candidates|length == 0 %}
+          <p> No candidate is available at the moment </p>
+        {% else %}
+        <p> Candidates for this student </p>
+          {% for p in candidates %}
+          <div class="row">
+              <div class="col-md-12">
+                {% for i in range(p['tutor_rating']) %}
+                  <span class="glyphicon glyphicon-star"></span>
+                {% endfor %}
+                {% for i in range(5 - p['tutor_rating']) %}
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                {% endfor %}
+                  {{ p['name'] }}
+                  <form action="/api/accepttutor" method="post">
+                    <input type="submit" class="btn btn-primary pull-right" value="Accept"></input>
+                    <input type="hidden" value="{{ p['user_id'] }}" name="user_id">
+                    <input type="hidden" value="{{ order_id }}" name="order_id">
+                  </form>
+                  <p>{{ p['intro'] }}</p>
+              </div>
+          </div>
+          <hr>
+          {% endfor %}
+          {% endif %}
     </div>
-
   </div>
 
-
+  {% if not hasSelectedTutor %}
   <div class="col-md-3">
     <div class="row">
       <h4>Ask for the Job</h4>
@@ -105,7 +114,7 @@
       </div>
     </div>
   </div>
-
+  {% endif %}
 </div>
 
 {% endblock %}
