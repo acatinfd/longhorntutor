@@ -8,9 +8,12 @@ class CreateNewOrder(webapp2.RequestHandler):
         subject = self.request.get('subject')
         title = self.request.get('title')
         comment = self.request.get('comment')
+        return_url = self.request.get('return_url')
 
         order = Order(owner_id=owner_id, subject=subject, title=title, \
                     comment=comment, status_code=1)
         key = order.put()
 
         self.response.write(json.dumps({'status_code': 0, 'key': key.id()}))
+        if return_url:
+            self.redirect(str(return_url))

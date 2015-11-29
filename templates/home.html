@@ -34,11 +34,13 @@
                     <input type="submit" class="btn btn-primary" value="Accept"></input>
                     <input type="hidden" value="{{ user_id }}" name="user_id">
                     <input type="hidden" value="{{ p['order_id'] }}" name="order_id">
+                    <input type="hidden" value="{{ return_url }}" name="return_url">
                   </form>
                   <form class="inline" action="/api/deleteinvite" method="post">
                     <input type="submit" class="btn btn-default" value="Reject"></input>
                     <input type="hidden" value="{{ user_id }}" name="user_id">
                     <input type="hidden" value="{{ p['order_id'] }}" name="order_id">
+                    <input type="hidden" value="{{ return_url }}" name="return_url">
                   </form>
                 </p>
               </div>
@@ -73,6 +75,9 @@
 
     <div class="col-md-3 own-requests">
       <h1>Your Posts</h1>
+      {% if orders | length == 0 %}
+      <p> You have no post at the moment. </p>
+      {% else %}
       {% for p in orders %}
         <div>
           <h3>
@@ -83,7 +88,9 @@
           <hr/>
         </div>
       {% endfor %}
+    {% endif %}
     </div>
+
 </div>
 <!-- /.row <--></-->
 {% endblock %}

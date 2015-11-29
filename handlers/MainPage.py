@@ -36,8 +36,10 @@ class MainPage(webapp2.RequestHandler):
                 'user_id' : user.user_id(),
                 'orders': orders,
                 'notifies': notifies,
-                'pendingOrders': pendingOrders
+                'pendingOrders': pendingOrders,
+                'return_url': base + '/',
             }
+
             template = JINJA_ENVIRONMENT.get_template('home.html')
             self.response.write(template.render(template_values))
         else:

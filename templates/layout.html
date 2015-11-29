@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Longhorn</title>
+    <title>Help A Longhorn</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Longhorn</a>
+          <a class="navbar-brand" href="#">Help A Longhorn</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -83,6 +83,7 @@
 
               <form class="form-horizontal" role="form" id="profile-form" action="/api/createneworder" method="post">
                 <input class="form-control" type="hidden" name="user_id" value="{{user_id}}">
+                <input class="form-control" type="hidden" name="return_url" value="{{return_url}}">
                 <div class="form-group">
                   <label class="col-md-3 control-label">Subject</label>
                   <div class="col-md-8">

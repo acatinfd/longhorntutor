@@ -9,8 +9,8 @@ class UpdateUserInfo(webapp2.RequestHandler):
         name = self.request.get('name')
         subjects = self.request.get('subjects')
         intro = self.request.get('intro_text')
-
-        print '\n\n\n intro is', intro, '\n\n\n'
+        return_url = self.request.get('return_url')
+        
         user = UserInfo.query_by_id(user_id)
         if(user):
             if(name):
@@ -38,3 +38,5 @@ class UpdateUserInfo(webapp2.RequestHandler):
 
         key = user.put()
         self.response.write(json.dumps({'status_code': 0, 'key': key.id()}))
+        if return_url:
+            self.redirect(str(return_url))

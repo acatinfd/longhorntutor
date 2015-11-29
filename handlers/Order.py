@@ -30,6 +30,8 @@ class Order(webapp2.RequestHandler):
                 order_info['hasSelectedTutor'] = True
                 order_info['own_the_order'] = (order_info['selectedTutor']['user_id'] == user.user_id()) or (user.user_id() == order_info['owner_id'])
 
+            order_info['return_url'] = base + '/order?order_id=' + order_id
+            
             template = JINJA_ENVIRONMENT.get_template('order.html')
             self.response.write(template.render(order_info))
         else:
