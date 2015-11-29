@@ -23,3 +23,21 @@ nav li button {
 #search-input {
   width: 260px;
 }
+
+.subject {
+  color: white;
+  margin: 15px auto;
+  padding: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background:rgba(16,121,227,0.6);
+}
+
+.post-comment {
+  margin-top: 10px;
+}
+
+.inline {
+    display: inline-block; //Or display: inline;
+}

@@ -13,7 +13,7 @@ class AcceptTutor(webapp2.RequestHandler):
             self.response.write(json.dumps({'status_code': -1}))
             return
         else:
-            order.order_status = 3 #accept the tutor
+            order.status_code = 3 #accept the tutor
             order.put()
             #TODO: create Notify
             self.response.write(json.dumps({'status_code': 0}))

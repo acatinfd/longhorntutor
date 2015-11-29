@@ -15,9 +15,8 @@ class GetOrderInfo(webapp2.RequestHandler):
             status = "open"
             if (order.status_code == 0):
                 status = "close"
-
-            self.response.write(json.dumps({'status_code': 0, 'name':user.name,\
+            self.response.write(json.dumps({'status_code': 0, 'name':user.name, 'owner_id': order.owner_id, \
                 'email':user.email, 'tutor_rating':user.tutor_rating, \
                 'intro':user.intro, 'subject':order.subject, \
                 'title':order.title, 'comment':order.comment, \
-                'status_code':status}))
+                'order_id':order_id, 'status_code':status}))

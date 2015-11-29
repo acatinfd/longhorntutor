@@ -13,7 +13,7 @@ class AcceptInvite(webapp2.RequestHandler):
             self.response.write(json.dumps({'status_code': -1}))
             return
         else:
-            order.order_status = 2 #accept to be a candidate
+            order.status_code = 2 #accept to be a candidate
             order.put()
             #TODO: create Notify
             self.response.write(json.dumps({'status_code': 0}))

@@ -15,13 +15,28 @@ class MainPage(webapp2.RequestHandler):
             base = GetPath(self.request.url, self.request.path)
             r = requests.get(base + '/api/getmyorders', params={'user_id': user.user_id()})
             orders = r.json()
+
             r = requests.get(base + '/api/getnewnotify', params={'user_id': user.user_id()})
             notifies = r.json()
+
+            r = requests.get(base + '/api/getpendingorders', params={'user_id': user.user_id()})
+            pendingOrders = r.json()
+            if pendingOrders is not None:
+                for p in pendingOrders:
+                    r = requests.get(base + '/api/getorderinfo', params={'order_id': p['order_id']})
+                    orderInfo = r.json()
+                    if orderInfo is not None:
+                        p['owner_name'] = orderInfo['name']
+                        p['subject'] = orderInfo['subject']
+                        p['title'] = orderInfo['title']
+                        p['comment'] = orderInfo['comment']
+                        p['owner_id'] = orderInfo['owner_id']
 
             template_values = {
                 'user_id' : user.user_id(),
                 'orders': orders,
-                'notifies': notifies
+                'notifies': notifies,
+                'pendingOrders': pendingOrders
             }
             template = JINJA_ENVIRONMENT.get_template('home.html')
             self.response.write(template.render(template_values))
