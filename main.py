@@ -20,7 +20,7 @@ from handlers.api.InviteTutor import InviteTutor
 from handlers.api.SearchOrders import SearchOrders
 from handlers.api.SearchUser import SearchUser
 from handlers.api.UpdateUserInfo import UpdateUserInfo
-from handlers.api.UploadPhoto import *
+from handlers.api.UploadPhoto import ViewPhotoHandler
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
@@ -42,6 +42,5 @@ app = webapp2.WSGIApplication([
     ('/api/searchorders', SearchOrders),
     ('/api/searchuser', SearchUser),
     ('/api/updateuserinfo', UpdateUserInfo),
-    ('/upload_photo', PhotoUploadHandler),
     ('/view_photo/([^/]+)?', ViewPhotoHandler),
     ], debug = True)

@@ -18,7 +18,7 @@ class Profile(webapp2.RequestHandler):
             r = requests.get(base + '/api/getuser', params={'user_id': user.user_id(), 'email': user.email()})
             data = r.json()
             data['return_url'] = base + '/profile'
-            data['upload_url'] = blobstore.create_upload_url('/upload_photo')
+            data['upload_url'] = blobstore.create_upload_url('/api/updateuserinfo')
 
             if data['picture'] is None:
                 data['picture'] = '/images/avatar-template.png'
