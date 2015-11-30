@@ -4,7 +4,7 @@ from domain.OrderUser import OrderUser
 from domain.Order import Order
 from domain.Notify import Notify
 
-from handlers.helper.Messages import getInviteMessage, getInviteURL
+from handlers.helper.Messages import getInviteMessage, getInviteURL, getAlertMessage
 from handlers.helper.GetPath import GetPath
 
 """
@@ -17,6 +17,7 @@ class InviteTutor(webapp2.RequestHandler):
         user_id = self.request.get('user_id')
         self_applied = self.request.get('self_applied')
         return_url = self.request.get('return_url')
+        message = 'Tutor is invited!'
 
         order = Order.query_by_id(order_id)
         if order is not None:
@@ -24,7 +25,8 @@ class InviteTutor(webapp2.RequestHandler):
             existOrder = OrderUser.query_by_user_and_order(user_id, order_id)
             if (existOrder is not None):
                 self.response.write(json.dumps({'status_code': 0, 'message': 'already exists'}))
-                return
+                if return_url:
+                    self.redirect(getAlertMessage(return_url, "This tutor has already been invited!"))
 
             #create an invitation
             invitation = OrderUser(user_id=user_id, order_id=order_id, \
@@ -40,6 +42,7 @@ class InviteTutor(webapp2.RequestHandler):
             self.response.write(json.dumps({'status_code': 0, 'key': key.id()}))
         else:
             self.response.write(json.dumps({'status_code': -1}))
+            message = "The post is no longer open!"
 
         if return_url:
-            self.redirect(str(return_url))
+            self.redirect(getAlertMessage(return_url, message))

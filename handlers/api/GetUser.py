@@ -19,4 +19,6 @@ class GetUser(webapp2.RequestHandler):
         subjects = ', '.join([p.subject for p in subjects])
 
         self.response.write(json.dumps({'status_code':0, 'user_id': user_id, 'name': user.name,\
-         'email': user.email, 'tutor_rating': user.tutor_rating, 'intro':user.intro, 'subjects': subjects}))
+         'email': user.email, 'tutor_rating': user.tutor_rating, \
+         'intro':user.intro, 'subjects': subjects, \
+         'picture': str(user.picture)}))

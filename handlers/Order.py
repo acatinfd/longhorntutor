@@ -16,24 +16,29 @@ class Order(webapp2.RequestHandler):
             base = GetPath(self.request.url, self.request.path)
             r = requests.get(base + '/api/getorderinfo', params={'order_id': order_id})
             order_info = r.json()
-            order_info['user_id'] = user.user_id()
 
-            order_info['is_applied'] = False
-            order_info['hasSelectedTutor'] = False
-            order_info['own_the_order'] = False
+            if (order_info):
+                order_info['user_id'] = user.user_id()
 
-            exist_order = OrderUser.query_by_user_and_order(user.user_id(), order_id)
-            if (exist_order and exist_order.status_code == 2):
-                order_info['is_applied'] = True
+                order_info['is_applied'] = False
+                order_info['hasSelectedTutor'] = False
+                order_info['own_the_order'] = False
 
-            if order_info['selectedTutor']:
-                order_info['hasSelectedTutor'] = True
-                order_info['own_the_order'] = (order_info['selectedTutor']['user_id'] == user.user_id()) or (user.user_id() == order_info['owner_id'])
+                exist_order = OrderUser.query_by_user_and_order(user.user_id(), order_id)
+                if (exist_order and exist_order.status_code == 2):
+                    order_info['is_applied'] = True
 
-            order_info['return_url'] = base + '/order?order_id=' + order_id
-            
-            template = JINJA_ENVIRONMENT.get_template('order.html')
-            self.response.write(template.render(order_info))
+                if order_info['selectedTutor']:
+                    order_info['hasSelectedTutor'] = True
+                    order_info['own_the_order'] = (order_info['selectedTutor']['user_id'] == user.user_id()) or (user.user_id() == order_info['owner_id'])
+
+                order_info['return_url'] = base + '/order?order_id=' + order_id
+                order_info['showAlert'] = self.request.get('showAlert')
+
+                template = JINJA_ENVIRONMENT.get_template('order.html')
+                self.response.write(template.render(order_info))
+            else:
+                self.response.write("Error! No such order.")
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'

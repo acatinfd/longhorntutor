@@ -1,4 +1,7 @@
 from google.appengine.api import users
+from google.appengine.ext import blobstore
+from google.appengine.api.images import get_serving_url
+
 import webapp2
 from jinja import JINJA_ENVIRONMENT
 
@@ -15,7 +18,8 @@ class Profile(webapp2.RequestHandler):
             r = requests.get(base + '/api/getuser', params={'user_id': user.user_id(), 'email': user.email()})
             data = r.json()
             data['return_url'] = base + '/profile'
-            
+            data['upload_url'] = blobstore.create_upload_url('/upload_photo')
+            #data['thumbnail'] = get_serving_url(data['picture'], size=32, crop=False, secure_url=None)
             template = JINJA_ENVIRONMENT.get_template('profile.html')
             self.response.write(template.render(data))
         else:

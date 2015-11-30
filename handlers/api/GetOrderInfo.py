@@ -12,7 +12,7 @@ class GetOrderInfo(webapp2.RequestHandler):
         order = Order.query_by_id(order_id)
 
         if (order is None):
-            self.response.write(json.dumps({'status_code': 1}))
+            self.response.write(json.dumps({}))
         else:
             user = UserInfo.query_by_id(order.owner_id)
             status = "open"
@@ -47,4 +47,4 @@ class GetOrderInfo(webapp2.RequestHandler):
                 'intro':user.intro, 'subject':order.subject, \
                 'title':order.title, 'comment':order.comment, \
                 'order_id':order_id, 'candidates': candidates, \
-                'selectedTutor':selectedTutor, 'status_code':status}))
+                'selectedTutor':selectedTutor, 'order_status':status}))

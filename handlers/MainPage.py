@@ -32,12 +32,14 @@ class MainPage(webapp2.RequestHandler):
                         p['comment'] = orderInfo['comment']
                         p['owner_id'] = orderInfo['owner_id']
 
+            showAlert = self.request.get('showAlert')
             template_values = {
                 'user_id' : user.user_id(),
                 'orders': orders,
                 'notifies': notifies,
                 'pendingOrders': pendingOrders,
                 'return_url': base + '/',
+                'showAlert': showAlert,
             }
 
             template = JINJA_ENVIRONMENT.get_template('home.html')

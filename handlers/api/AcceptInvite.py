@@ -5,7 +5,7 @@ from domain.OrderUser import OrderUser
 from domain.Order import Order
 from domain.Notify import Notify
 
-from handlers.helper.Messages import getInviteURL, getAcceptCandidateMessage
+from handlers.helper.Messages import getInviteURL, getAcceptCandidateMessage, getAlertMessage
 from handlers.helper.GetPath import GetPath
 
 class AcceptInvite(webapp2.RequestHandler):
@@ -13,12 +13,13 @@ class AcceptInvite(webapp2.RequestHandler):
         user_id = self.request.get('user_id')
         order_id = self.request.get('order_id')
         return_url = self.request.get('return_url')
+        message = "Accepted invitation!"
 
         order = OrderUser.query_by_user_and_order(user_id, order_id)
 
         if (order is None or order.status_code != 1):
             self.response.write(json.dumps({'status_code': -1}))
-            return
+            message = "Request no longer exists."
         else:
             order.status_code = 2 #accept to be a candidate
             order.put()
@@ -32,4 +33,4 @@ class AcceptInvite(webapp2.RequestHandler):
             self.response.write(json.dumps({'status_code': 0}))
 
         if return_url:
-            self.redirect(str(return_url))
+            self.redirect(getAlertMessage(return_url, message))

@@ -41,3 +41,7 @@ nav li button {
 .inline {
     display: inline-block; //Or display: inline;
 }
+
+img {
+  max-width: 200px;
+}

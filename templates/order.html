@@ -26,6 +26,13 @@
         </div>
     </div>
 
+    {% if showAlert %}
+    <div class="alert alert-success" id="success-alert">
+      <button type="button" class="close" data-dismiss="alert">x</button>
+      <strong>{{ showAlert }} </strong>
+    </div>
+    {% endif %}
+
     <div class="well">
       {% if selectedTutor %}
       <div class="row">
