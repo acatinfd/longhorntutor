@@ -19,7 +19,13 @@ class Profile(webapp2.RequestHandler):
             data = r.json()
             data['return_url'] = base + '/profile'
             data['upload_url'] = blobstore.create_upload_url('/upload_photo')
-            #data['thumbnail'] = get_serving_url(data['picture'], size=32, crop=False, secure_url=None)
+
+            if data['picture'] is None:
+                data['picture'] = '/images/avatar-template.png'
+            else:
+                data['picture'] = '/view_photo/' + data['picture']
+
+            data['showAlert'] = self.request.get('showAlert')
             template = JINJA_ENVIRONMENT.get_template('profile.html')
             self.response.write(template.render(data))
         else:

@@ -16,8 +16,7 @@
       {% if showAlert %}
       <div class="alert alert-success" id="success-alert">
         <button type="button" class="close" data-dismiss="alert">x</button>
-        <strong>Success! </strong>
-        Product have added to your wishlist.
+        <strong>{{ showAlert }}</strong>
       </div>
       {% endif %}
       <div class="pending-requests">
@@ -55,6 +54,7 @@
         {% endfor %}
       </div>
       </div>
+      <hr>
 
       <div class="recommend-requests">
         <h1>You may also be interested in...</h1>
@@ -77,6 +77,7 @@
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
         </div>
       </div>
+      <hr>
     </div>
 
     <div class="col-md-3 own-requests">
@@ -96,7 +97,6 @@
       {% endfor %}
     {% endif %}
     </div>
-
 </div>
 <!-- /.row <--></-->
 {% endblock %}

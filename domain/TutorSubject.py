@@ -28,6 +28,6 @@ class TutorSubject(ndb.Model):
     def query_by_tutor_and_subject(cls, tutor_id, subject):
         all_subjects = TutorSubject.query_by_tutor_id(tutor_id);
         for s in all_subjects:
-            if s.subject == subject:
+            if s.subject.lower() == subject.lower():
                 return s
         return None

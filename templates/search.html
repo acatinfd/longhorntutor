@@ -3,52 +3,56 @@
 {% block body %}
 
 <div class="row">
-    <!-- left side of the page -->
-    <div class="col-md-9">
+    <div class="col-md-12">
+      {% if showAlert %}
+      <div class="alert alert-success" id="success-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>{{ showAlert }}</strong>
+      </div>
+      {% endif %}
       <div class="search-result">
-        <h1>Search: </h1>
-        <div>
-          <a href="#">
-              <img class="img-responsive" src="http://placehold.it/700x200" alt="">
-          </a>
-          <h3>
-              <a href="#">Project One</a>
-          </h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-        </div>
-        <div>
-          <a href="#">
-              <img class="img-responsive" src="http://placehold.it/700x200" alt="">
-          </a>
-          <h3>
-              <a href="#">Project One</a>
-          </h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-        </div>
+        <h1>Related Posts: </h1>
+        {% if searchResults | length == 0 %}
+        <p> No related post at the moment. </p>
+        {% endif %}
+        {% for p in searchResults %}
+          <div>
+            <h3>
+                <a href="/order?order_id={{p.order_id}}">{{p.title}}</a>
+            </h3>
+            <span class="subject">{{p.subject}}</span>
+            <p class="post-comment">{{p.comment}}</p>
+            <hr/>
+          </div>
+        {% endfor %}
       </div>
-    </div>
 
-    <div class="col-md-3 search-users">
-      <h1>Related Tutors</h1>
-      <div>
-        <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x200" alt="">
-        </a>
-        <h3>
-            <a href="#">Tutor One</a>
-        </h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
+      <hr>
+      
+      <div class="search-users">
+        <h1>Related Tutors</h1>
+        {% if searchUsers | length == 0 %}
+        <p> No related tutors at the moment. </p>
+        {% endif %}
+        {% for p in searchUsers %}
+          <div class="col-sm-4 col-md-3">
+            <div class="thumbnail">
+              <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
+              <div class="caption">
+                <p><span class="label label-success">{{ p['name'] }}</span></p>
+                {% for i in range(p['tutor_rating']) %}
+                  <span class="glyphicon glyphicon-star"></span>
+                {% endfor %}
+                {% for i in range(5 - p['tutor_rating']) %}
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                {% endfor %}
+                <p class="post-comment">{{ p['intro'] }}</p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
       </div>
-      <div>
-        <a href="#">
-            <img class="img-responsive" src="http://placehold.it/700x200" alt="">
-        </a>
-        <h3>
-            <a href="#">Tutor Two</a>
-        </h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.</p>
-      </div>
-    </div>
+      <hr>
 </div>
 <!-- /.row <--></-->
 {% endblock %}

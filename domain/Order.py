@@ -22,3 +22,7 @@ class Order(ndb.Model):
     @classmethod
     def query_by_id(cls, order_id):
         return cls.get_by_id(int(order_id))
+
+    @classmethod
+    def query_by_subject(cls, subject):
+        return Order.query(Order.subject.lower() == subject.strip().lower())

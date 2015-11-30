@@ -3,6 +3,7 @@ import webapp2
 from handlers.MainPage import MainPage
 from handlers.Order import Order
 from handlers.Profile import Profile
+from handlers.Search import Search
 
 from handlers.api.AcceptInvite import AcceptInvite
 from handlers.api.AcceptTutor import AcceptTutor
@@ -24,6 +25,7 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/order', Order),
     ('/profile', Profile),
+    ('/search', Search),
     ('/api/acceptinvite', AcceptInvite),
     ('/api/accepttutor', AcceptTutor),
     ('/api/createneworder', CreateNewOrder),

@@ -15,9 +15,9 @@ class UpdateUserInfo(webapp2.RequestHandler):
 
         user = UserInfo.query_by_id(user_id)
         if(user):
-            if(name):
+            if(name and user.name != name):
                 user.name = name
-            if(intro):
+            if(intro and user.intro != intro):
                 user.intro = intro
             if(subjects):
                 old_subjects = TutorSubject.query_by_tutor_id(user_id)
@@ -27,7 +27,7 @@ class UpdateUserInfo(webapp2.RequestHandler):
 
                 for p in cur_subjects:
                     if p not in old_subjects:
-                        new_subject = TutorSubject(user_id=user_id, subject=p, rating=0, order_count=0, intro="")
+                        new_subject = TutorSubject(user_id=user_id, subject=p, rating=4.0, order_count=0, intro="")
                         new_subject.put()
 
                 for p in old_subjects:

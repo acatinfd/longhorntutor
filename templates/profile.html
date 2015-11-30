@@ -7,7 +7,7 @@
     <!-- left column -->
     <div class="col-md-3">
       <div class="text-center profile-pic">
-        <img src="/view_photo/{{ picture }}" class="avatar img-circle" alt="avatar">
+        <img src="{{ picture }}" class="avatar img-circle" alt="avatar">
         <form action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
           <h6>Upload a different photo...</h6><input type="file" name="file"><br>
           <input class="btn btn-primary btn-sm" type="submit" name="submit" value="Submit">
@@ -17,11 +17,13 @@
 
     <!-- edit form column -->
     <div class="col-md-9 personal-info">
-      <div class="alert alert-warning alert-dismissable">
-        <a class="panel-close close" data-dismiss="alert">×</a>
-        <i class="fa fa-coffee"></i>
-        This is an <strong>.alert</strong>. Use this to show important messages to the user.
+      {% if showAlert %}
+      <div class="alert alert-success" id="success-alert">
+        <button type="button" class="close" data-dismiss="alert">x</button>
+        <strong>{{ showAlert }}</strong>
       </div>
+      {% endif %}
+
       <h3>Personal info</h3>
 
       <form class="form-horizontal" role="form" id="profile-form" action="/api/updateuserinfo" method="post">
@@ -59,6 +61,7 @@
             <input type="reset" class="btn btn-default" value="Cancel">
           </div>
         </div>
+        <input type="hidden" name="return_url" value="{{ return_url }}">
       </form>
     </div>
 </div>
