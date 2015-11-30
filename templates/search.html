@@ -11,48 +11,51 @@
       </div>
       {% endif %}
       <div class="search-result">
-        <h1>Related Posts: </h1>
+        <h1>Related Posts </h1>
         {% if searchResults | length == 0 %}
         <p> No related post at the moment. </p>
+        <hr>
         {% endif %}
         {% for p in searchResults %}
-          <div>
+        <div class="row col-md-12">
+          <div class="col-md-3 thumbnail">
+            <img src="http://placehold.it/700x400" class="avatar img-circle" alt="avatar">
+          </div>
+          <div class="col-md-9">
             <h3>
                 <a href="/order?order_id={{p.order_id}}">{{p.title}}</a>
             </h3>
             <span class="subject">{{p.subject}}</span>
             <p class="post-comment">{{p.comment}}</p>
-            <hr/>
           </div>
+        </div>
         {% endfor %}
       </div>
 
-      <hr>
-      
       <div class="search-users">
-        <h1>Related Tutors</h1>
-        {% if searchUsers | length == 0 %}
-        <p> No related tutors at the moment. </p>
-        {% endif %}
-        {% for p in searchUsers %}
-          <div class="col-sm-4 col-md-3">
-            <div class="thumbnail">
-              <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
-              <div class="caption">
-                <p><span class="label label-success">{{ p['name'] }}</span></p>
-                {% for i in range(p['tutor_rating']) %}
-                  <span class="glyphicon glyphicon-star"></span>
-                {% endfor %}
-                {% for i in range(5 - p['tutor_rating']) %}
-                  <span class="glyphicon glyphicon-star-empty"></span>
-                {% endfor %}
-                <p class="post-comment">{{ p['intro'] }}</p>
+          <h1>Related Tutors</h1>
+          {% if searchUsers | length == 0 %}
+          <p> No related tutors at the moment. </p>
+          {% endif %}
+          {% for p in searchUsers %}
+            <div class="col-sm-4 col-md-3">
+              <div class="thumbnail">
+                <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
+                <div class="caption">
+                  <p><span class="label label-success">{{ p['name'] }}</span></p>
+                  {% for i in range(p['tutor_rating']) %}
+                    <span class="glyphicon glyphicon-star"></span>
+                  {% endfor %}
+                  {% for i in range(5 - p['tutor_rating']) %}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                  {% endfor %}
+                  <p class="post-comment">{{ p['intro'] }}</p>
+                </div>
               </div>
             </div>
-          </div>
-        {% endfor %}
-      </div>
-      <hr>
+          {% endfor %}
+    </div>
 </div>
-<!-- /.row <--></-->
+<hr/>
+<!-- /.row <-->
 {% endblock %}

@@ -25,11 +25,9 @@ class Notify(ndb.Model):
     @classmethod
     def query_by_from_and_to_users(cls, from_user, to_user):
         users = Notify.query_by_from_user(from_user)
-
-        if users is not None:
-            for u in users:
-                if u.to_user == to_user:
-                    return u
+        for u in users:
+            if u.to_user == to_user:
+                return u
         return None
 
     @classmethod

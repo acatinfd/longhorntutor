@@ -13,20 +13,21 @@ API for adding OrderUser relationship
 
 class InviteTutor(webapp2.RequestHandler):
     def post(self):
-        order_id = self.request.get('order_id') #tutor id
-        user_id = self.request.get('user_id')
+        order_id = self.request.get('order_id')
+        user_id = self.request.get('user_id') #tutor id
         self_applied = self.request.get('self_applied')
         return_url = self.request.get('return_url')
         message = 'Tutor is invited!'
 
         order = Order.query_by_id(order_id)
-        if order is not None:
+        if (order is not None) and (user_id is not None):
             #check if already invited
             existOrder = OrderUser.query_by_user_and_order(user_id, order_id)
-            if (existOrder is not None):
+            if existOrder is not None:
                 self.response.write(json.dumps({'status_code': 0, 'message': 'already exists'}))
                 if return_url:
                     self.redirect(getAlertMessage(return_url, "This tutor has already been invited!"))
+                return
 
             #create an invitation
             invitation = OrderUser(user_id=user_id, order_id=order_id, \

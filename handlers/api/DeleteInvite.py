@@ -20,7 +20,7 @@ class DeleteInvite(webapp2.RequestHandler):
         if order is not None:
             #check if already invited
             existOrder = OrderUser.query_by_user_and_order(user_id, order_id)
-            if (existOrder is not None):
+            if existOrder is not None:
                 existOrder.key.delete()
                 self.response.write(json.dumps({'status_code': 0}))
         else:

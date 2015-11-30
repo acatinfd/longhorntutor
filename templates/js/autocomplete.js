@@ -9,7 +9,7 @@ $(function() {
           type: "GET",
           success: function(data) {
               console.log(data);
-              response($.map(data['users'], function(obj) {
+              response($.map(data, function(obj) {
                   return {
                     label: obj.name,
                     value: obj.name,

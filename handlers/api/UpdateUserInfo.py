@@ -23,7 +23,7 @@ class UpdateUserInfo(webapp2.RequestHandler):
                 old_subjects = TutorSubject.query_by_tutor_id(user_id)
                 old_subjects = [p.subject for p in old_subjects]
                 cur_subjects = subjects.split(',')
-                cur_subjects = [p.strip() for p in cur_subjects]
+                cur_subjects = [p.strip() for p in cur_subjects if p != '' and not p.isspace()]
 
                 for p in cur_subjects:
                     if p not in old_subjects:
@@ -33,7 +33,7 @@ class UpdateUserInfo(webapp2.RequestHandler):
                 for p in old_subjects:
                     if p not in cur_subjects:
                         s = TutorSubject.query_by_tutor_and_subject(user_id, p)
-                        if (s is not None):
+                        if s is not None:
                             s.key.delete()
         else:
             user = UserInfo(user_id=user_id, email=email, name=name, intro=intro, tutor_rating=0, picture=None)

@@ -25,4 +25,9 @@ class Order(ndb.Model):
 
     @classmethod
     def query_by_subject(cls, subject):
-        return Order.query(Order.subject.lower() == subject.strip().lower())
+        subject = subject.strip().lower()
+        orders = []
+        for o in Order.query():
+            if o.subject.lower() == subject:
+                orders.append(o)
+        return orders

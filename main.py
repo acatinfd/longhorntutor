@@ -17,6 +17,7 @@ from handlers.api.GetOrderInfo import GetOrderInfo
 from handlers.api.GetPendingOrders import GetPendingOrders
 from handlers.api.GetUser import GetUser
 from handlers.api.InviteTutor import InviteTutor
+from handlers.api.SearchOrders import SearchOrders
 from handlers.api.SearchUser import SearchUser
 from handlers.api.UpdateUserInfo import UpdateUserInfo
 from handlers.api.UploadPhoto import *
@@ -38,6 +39,7 @@ app = webapp2.WSGIApplication([
     ('/api/getpendingorders', GetPendingOrders),
     ('/api/getuser', GetUser),
     ('/api/invitetutor', InviteTutor),
+    ('/api/searchorders', SearchOrders),
     ('/api/searchuser', SearchUser),
     ('/api/updateuserinfo', UpdateUserInfo),
     ('/upload_photo', PhotoUploadHandler),

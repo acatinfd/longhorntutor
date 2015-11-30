@@ -17,7 +17,7 @@ class AcceptInvite(webapp2.RequestHandler):
 
         order = OrderUser.query_by_user_and_order(user_id, order_id)
 
-        if (order is None or order.status_code != 1):
+        if (order is None):
             self.response.write(json.dumps({'status_code': -1}))
             message = "Request no longer exists."
         else:

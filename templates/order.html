@@ -12,7 +12,7 @@
             <p>{{comment}}</p>
         </div>
         <div class="ratings">
-            {% if not hasSelectedTutor %}
+            {% if (not hasSelectedTutor) and candidates | length %}
               <p class="pull-right">{{ candidates|length }} candidates</p>
             {% endif %}
             <p>

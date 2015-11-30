@@ -21,17 +21,19 @@ class MainPage(webapp2.RequestHandler):
 
             r = requests.get(base + '/api/getpendingorders', params={'user_id': user.user_id()})
             pendingOrders = r.json()
-            if pendingOrders is not None:
+            if len(pendingOrders):
                 for p in pendingOrders:
                     r = requests.get(base + '/api/getorderinfo', params={'order_id': p['order_id']})
                     orderInfo = r.json()
-                    if orderInfo is not None:
+                    if len(orderInfo):
                         p['owner_name'] = orderInfo['name']
                         p['subject'] = orderInfo['subject']
                         p['title'] = orderInfo['title']
                         p['comment'] = orderInfo['comment']
                         p['owner_id'] = orderInfo['owner_id']
-
+                    else:
+                        pendingOrders.remove(p)
+                        
             showAlert = self.request.get('showAlert')
             template_values = {
                 'user_id' : user.user_id(),
