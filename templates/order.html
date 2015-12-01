@@ -16,7 +16,7 @@
               <p class="pull-right">{{ candidates|length }} candidates</p>
             {% endif %}
             <p>
-                <b>Student:</b> {{ name }}
+                <b>Student:</b> <a href="/userinfo?user_id={{ owner_id }}">{{ name }}</a>
             </p>
             {% if own_the_order %}
             <p>
@@ -33,36 +33,48 @@
     </div>
     {% endif %}
 
-    <div class="well">
-      {% if selectedTutor %}
+    {% if selectedTutor %}
       <div class="row">
-          <div class="col-md-12">
-            <div class="col-md-3">
-              <span><img src="{{ selectedTutor['picture'] }}" class="avatar img-circle" alt="avatar"></span>
+        <h3 >
+          Selected Tutor:
+        </h3>
+        <div>
+        <div class="card hovercard">
+            <img src="{{ selectedTutor['picture'] }}" class="avatar img-circle" alt="avatar">
+            <div class="info">
+                <div class="title">
+                    <a href="/userinfo?user_id={{ selectedTutor['user_id'] }}">{{ selectedTutor['name'] }}</a>
+                </div>
+                {% for i in range(selectedTutor['tutor_rating']) %}
+                  <span class="glyphicon glyphicon-star"></span>
+                {% endfor %}
+                {% for i in range(5 - selectedTutor['tutor_rating']) %}
+                  <span class="glyphicon glyphicon-star-empty"></span>
+                {% endfor %}
+                <div class="desc">{{ selectedTutor['intro'] }}</div>
+                <div class="desc">
+                  <strong>Subjects:</strong>
+                  {{ selectedTutor['subjects'] }}
+                </div>
+                <div class="desc">
+                  {% if own_the_order %}
+                  <p>
+                      <b>Contact:</b> {{ email }}
+                  </p>
+                  {% endif %}
+                </div>
             </div>
-            <div class="col-md-9">
-              <p><span class="label label-success">{{ selectedTutor['name'] }}</span> is selected as the tutor!</p>
 
-              {% for i in range(selectedTutor['tutor_rating']) %}
-                <span class="glyphicon glyphicon-star"></span>
-              {% endfor %}
-              {% for i in range(5 - selectedTutor['tutor_rating']) %}
-                <span class="glyphicon glyphicon-star-empty"></span>
-              {% endfor %}
-
-              <p>{{ selectedTutor['intro'] }}</p>
-              {% if own_the_order %}
-              <p>
-                  <b>Contact:</b> {{ email }}
-              </p>
-              {% endif %}
+            <div class="bottom">
             </div>
-          </div>
+        </div>
       </div>
-      <hr>
+      </div>
       {% elif candidates|length == 0 %}
+
           <p> No candidate is available at the moment </p>
         {% else %}
+        <div class="well">
         <p> Candidates for this student </p>
           {% for p in candidates %}
           <div class="row">
@@ -76,19 +88,21 @@
                 {% for i in range(5 - p['tutor_rating']) %}
                   <span class="glyphicon glyphicon-star-empty"></span>
                 {% endfor %}
-                  {{ p['name'] }}
+                  <a href="/userinfo?user_id={{ p['user_id'] }}">{{ p['name'] }}</a>
+                  {% if user_id == owner_id %}
                   <form action="/api/accepttutor" method="post">
-                    <input type="submit" class="btn btn-primary pull-right" value="Accept"></input>
+                    <input type="submit" class="btn btn-primary pull-right" value="Accept" hidden></input>
                     <input type="hidden" value="{{ p['user_id'] }}" name="user_id">
                     <input type="hidden" value="{{ order_id }}" name="order_id">
                   </form>
+                  {% endif %}
                   <p>{{ p['intro'] }}</p>
               </div>
           </div>
           <hr>
           {% endfor %}
-          {% endif %}
-    </div>
+        </div>
+        {% endif %}
   </div>
 
   {% if not hasSelectedTutor %}

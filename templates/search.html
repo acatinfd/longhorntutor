@@ -26,7 +26,7 @@
                 <a href="/order?order_id={{p.order_id}}">{{ p['title'] }}</a>
             </h3>
             <span class="subject">{{ p['subject'] }}</span>
-            <h6><strong>Posted by</strong> {{ p['name'] }}</h6>
+            <h6><strong>Posted by </strong><a href="/userinfo?user_id={{ p['user_id'] }}">{{ p['name'] }}</a></h6>
             <p class="post-comment">{{ p['comment'] }}</p>
           </div>
         </div>
@@ -34,26 +34,38 @@
       </div>
 
       <div class="search-users">
-          <h1>Related Tutors</h1>
-          {% if searchUsers | length == 0 %}
-          <p> No related tutors at the moment. </p>
-          {% endif %}
-          {% for p in searchUsers %}
-            <div class="thumbnail col-sm-3">
-                <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
-                <div class="caption">
-                  <p><span class="label label-success">{{ p['name'] }}</span></p>
+        <h1>Related Tutors</h1>
+        {% if searchUsers | length == 0 %}
+        <p> No related tutors at the moment. </p>
+        {% endif %}
+        {% for p in searchUsers %}
+        <div class="col-md-3">
+          <div class="card hovercard">
+              <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
+
+              <div class="info">
+                  <div class="title">
+                      <a href="/userinfo?user_id={{ p['user_id'] }}">{{ p['name'] }}</a>
+                  </div>
                   {% for i in range(p['tutor_rating']) %}
                     <span class="glyphicon glyphicon-star"></span>
                   {% endfor %}
                   {% for i in range(5 - p['tutor_rating']) %}
                     <span class="glyphicon glyphicon-star-empty"></span>
                   {% endfor %}
-                  <p class="post-comment">{{ p['intro'] }}</p>
+                  <div class="desc">{{ p['intro'] }}</div>
+                  <div class="desc">
+                    <strong>Subjects:</strong>
+                    {{ p['subjects'] }}
+                  </div>
               </div>
-            </div>
-          {% endfor %}
-    </div>
+
+              <div class="bottom">
+              </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
 </div>
 <hr/>
 <!-- /.row <-->

@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+  <!-- left side of the page -->
+		<div class="col-lg-3 col-md-3">
+      <div class="card hovercard">
+          <img src="{{ picture }}" class="avatar img-circle" alt="avatar">
+
+          <div class="info">
+              <div class="title">
+                  {{name}}
+              </div>
+              {% for i in range( tutor_rating ) %}
+                <span class="glyphicon glyphicon-star"></span>
+              {% endfor %}
+              {% for i in range(5 - tutor_rating) %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+              {% endfor %}
+              <div class="desc">{{intro}}</div>
+              <div class="desc">
+                <strong>Subjects:</strong>
+                {{subjects}}
+              </div>
+          </div>
+
+          <div class="bottom">
+          </div>
+      </div>
+    </div>
+
+  <!-- right side of the page -->
+  <div class="col-md-9 own-requests">
+    <h1>Posts</h1>
+    {% if orders | length == 0 %}
+    <p> The user has no post at the moment. </p>
+    {% else %}
+    {% for p in orders %}
+      <div>
+        <h3>
+            <a href="/order?order_id={{p.order_id}}">{{p.title}}</a>
+        </h3>
+        <span class="subject">{{p.subject}}</span>
+        <p class="post-comment">{{p.comment}}</p>
+        <hr/>
+      </div>
+    {% endfor %}
+  {% endif %}
+  </div>
+</div>
+{% endblock %}
