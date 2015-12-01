@@ -3,11 +3,10 @@ from google.appengine.ext import blobstore
 from google.appengine.api.images import get_serving_url
 
 import webapp2
-from jinja import JINJA_ENVIRONMENT
-
 import requests
-
+from jinja import JINJA_ENVIRONMENT
 from helper.GetPath import GetPath
+from helper.PictureURL import getPictureURL
 
 class Profile(webapp2.RequestHandler):
     def get(self):
@@ -20,10 +19,7 @@ class Profile(webapp2.RequestHandler):
             data['return_url'] = base + '/profile'
             data['upload_url'] = blobstore.create_upload_url('/api/updateuserinfo')
 
-            if data['picture'] is None:
-                data['picture'] = '/images/avatar-template.png'
-            else:
-                data['picture'] = '/view_photo/' + data['picture']
+            data['picture'] = getPictureURL(data['picture'])
 
             data['showAlert'] = self.request.get('showAlert')
             template = JINJA_ENVIRONMENT.get_template('profile.html')

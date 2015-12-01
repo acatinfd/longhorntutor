@@ -2,6 +2,7 @@ from google.appengine.api import users
 import webapp2
 from jinja import JINJA_ENVIRONMENT
 from helper.GetPath import GetPath
+from helper.PictureURL import getPictureURL
 
 import requests
 
@@ -15,11 +16,7 @@ class Search(webapp2.RequestHandler):
             r = requests.get(base + '/api/searchuser', params={'query': query})
             searchUsers = r.json()
             for u in searchUsers:
-                print u
-                if u['picture'] != 'None':
-                    u['picture'] = '/view_photo/' + u['picture']
-                else:
-                    u['picture'] = '/images/avatar-template.png'
+                u['picture'] = getPictureURL(u['picture'])
 
             r = requests.get(base + '/api/searchorders', params={'query': query})
             searchResults = r.json()

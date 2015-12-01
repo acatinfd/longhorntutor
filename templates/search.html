@@ -17,16 +17,17 @@
         <hr>
         {% endif %}
         {% for p in searchResults %}
-        <div class="row col-md-12">
-          <div class="col-md-3 thumbnail">
-            <img src="http://placehold.it/700x400" class="avatar img-circle" alt="avatar">
+        <div class="col-md-12 thumbnail">
+          <div class="col-md-3">
+            <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
           </div>
           <div class="col-md-9">
             <h3>
-                <a href="/order?order_id={{p.order_id}}">{{p.title}}</a>
+                <a href="/order?order_id={{p.order_id}}">{{ p['title'] }}</a>
             </h3>
-            <span class="subject">{{p.subject}}</span>
-            <p class="post-comment">{{p.comment}}</p>
+            <span class="subject">{{ p['subject'] }}</span>
+            <h6><strong>Posted by</strong> {{ p['name'] }}</h6>
+            <p class="post-comment">{{ p['comment'] }}</p>
           </div>
         </div>
         {% endfor %}
@@ -38,8 +39,7 @@
           <p> No related tutors at the moment. </p>
           {% endif %}
           {% for p in searchUsers %}
-            <div class="col-sm-4 col-md-3">
-              <div class="thumbnail">
+            <div class="thumbnail col-sm-3">
                 <img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar">
                 <div class="caption">
                   <p><span class="label label-success">{{ p['name'] }}</span></p>
@@ -50,7 +50,6 @@
                     <span class="glyphicon glyphicon-star-empty"></span>
                   {% endfor %}
                   <p class="post-comment">{{ p['intro'] }}</p>
-                </div>
               </div>
             </div>
           {% endfor %}

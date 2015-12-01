@@ -20,7 +20,7 @@ from handlers.api.InviteTutor import InviteTutor
 from handlers.api.SearchOrders import SearchOrders
 from handlers.api.SearchUser import SearchUser
 from handlers.api.UpdateUserInfo import UpdateUserInfo
-from handlers.api.UploadPhoto import ViewPhotoHandler
+from handlers.api.ViewPhoto import ViewPhotoHandler
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
