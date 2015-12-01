@@ -29,18 +29,16 @@ class GetOrderInfo(webapp2.RequestHandler):
             tutors = [ {'user_id':ou.user_id } for ou in all_tutors if ou.status_code == 3]
 
             if len(tutors):
-                selectedTutor['user_id'] = tutors[0]['user_id']
-                r = requests.get(base + '/api/getuser', params={'user_id': selectedTutor['user_id']}).json()
-                selectedTutor['name'] = r['name']
-                selectedTutor['tutor_rating'] = int(r['tutor_rating'] + 0.5)
-                selectedTutor['intro'] = r['intro']
+                selectedTutor = requests.get(base + '/api/getuser', params={'user_id': tutors[0]['user_id']}).json()
+                selectedTutor['tutor_rating'] = int(selectedTutor['tutor_rating'] + 0.5)
             else:
-                candidates = [ {'user_id':ou.user_id } for ou in all_tutors if ou.status_code == 2]
-                for p in candidates:
-                    r = requests.get(base + '/api/getuser', params={'user_id': p['user_id']}).json()
-                    p['name'] = r['name']
-                    p['tutor_rating'] = int(r['tutor_rating'] + 0.5)
-                    p['intro'] = r['intro']
+                for ou in all_tutors:
+                    if ou.status_code == 2:
+                        p = requests.get(base + '/api/getuser', params={'user_id': ou.user_id}).json()
+                        print '\n\n\n info is', p, '\n\n\n'
+                        p['tutor_rating'] = int(p['tutor_rating'] + 0.5)
+                        candidates.append(p)
+
 
             self.response.write(json.dumps({'status_code': 0, 'name':user.name, 'owner_id': order.owner_id, \
                 'email':user.email, 'tutor_rating':user.tutor_rating, \

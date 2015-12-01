@@ -37,21 +37,26 @@
       {% if selectedTutor %}
       <div class="row">
           <div class="col-md-12">
-            <p><span class="label label-success">{{ selectedTutor['name'] }}</span> is selected as the tutor!</p>
+            <div class="col-md-3">
+              <span><img src="{{ selectedTutor['picture'] }}" class="avatar img-circle" alt="avatar"></span>
+            </div>
+            <div class="col-md-9">
+              <p><span class="label label-success">{{ selectedTutor['name'] }}</span> is selected as the tutor!</p>
 
-            {% for i in range(selectedTutor['tutor_rating']) %}
-              <span class="glyphicon glyphicon-star"></span>
-            {% endfor %}
-            {% for i in range(5 - selectedTutor['tutor_rating']) %}
-              <span class="glyphicon glyphicon-star-empty"></span>
-            {% endfor %}
+              {% for i in range(selectedTutor['tutor_rating']) %}
+                <span class="glyphicon glyphicon-star"></span>
+              {% endfor %}
+              {% for i in range(5 - selectedTutor['tutor_rating']) %}
+                <span class="glyphicon glyphicon-star-empty"></span>
+              {% endfor %}
 
-            <p>{{ selectedTutor['intro'] }}</p>
-            {% if own_the_order %}
-            <p>
-                <b>Contact:</b> {{ email }}
-            </p>
-            {% endif %}
+              <p>{{ selectedTutor['intro'] }}</p>
+              {% if own_the_order %}
+              <p>
+                  <b>Contact:</b> {{ email }}
+              </p>
+              {% endif %}
+            </div>
           </div>
       </div>
       <hr>
@@ -61,7 +66,10 @@
         <p> Candidates for this student </p>
           {% for p in candidates %}
           <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-3">
+                <span><img src="{{ p['picture'] }}" class="avatar img-circle" alt="avatar"></span>
+              </div>
+              <div class="col-md-9">
                 {% for i in range(p['tutor_rating']) %}
                   <span class="glyphicon glyphicon-star"></span>
                 {% endfor %}
