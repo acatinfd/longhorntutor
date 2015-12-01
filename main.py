@@ -16,6 +16,7 @@ from handlers.api.GetMyOrders import GetMyOrders
 from handlers.api.GetNewNotify import GetNewNotify
 from handlers.api.GetOrderInfo import GetOrderInfo
 from handlers.api.GetPendingOrders import GetPendingOrders
+from handlers.api.GetRecommendOrders import GetRecommendOrders
 from handlers.api.GetUser import GetUser
 from handlers.api.InviteTutor import InviteTutor
 from handlers.api.SearchOrders import SearchOrders
@@ -39,6 +40,7 @@ app = webapp2.WSGIApplication([
     ('/api/getnewnotify', GetNewNotify),
     ('/api/getorderinfo', GetOrderInfo),
     ('/api/getpendingorders', GetPendingOrders),
+    ('/api/getrecommendorders', GetRecommendOrders),
     ('/api/getuser', GetUser),
     ('/api/invitetutor', InviteTutor),
     ('/api/searchorders', SearchOrders),

@@ -40,7 +40,8 @@ class GetOrderInfo(webapp2.RequestHandler):
                         candidates.append(p)
 
 
-            self.response.write(json.dumps({'status_code': 0, 'name':user.name, 'owner_id': order.owner_id, \
+            self.response.write(json.dumps({'status_code': 0, 'name':user.name, \
+                'owner_id': order.owner_id, 'picture': str(user.picture), \
                 'email':user.email, 'tutor_rating':user.tutor_rating, \
                 'intro':user.intro, 'subject':order.subject, \
                 'title':order.title, 'comment':order.comment, \

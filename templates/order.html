@@ -4,26 +4,31 @@
 
 <div class="row">
   <div class="col-md-9">
-    <div class="thumbnail">
-        <div class="caption-full">
-            <h4 class="pull-right">$24.99</h4>
-            <h4><a href="#">{{title}}</a>
-            </h4>
-            <p>{{comment}}</p>
-        </div>
-        <div class="ratings">
-            {% if (not hasSelectedTutor) and candidates | length %}
-              <p class="pull-right">{{ candidates|length }} candidates</p>
-            {% endif %}
-            <p>
-                <b>Student:</b> <a href="/userinfo?user_id={{ owner_id }}">{{ name }}</a>
-            </p>
-            {% if own_the_order %}
-            <p>
-                <b>Contact:</b> {{ email }}
-            </p>
-            {% endif %}
-        </div>
+    <div class="col-md-12 thumbnail">
+      <div class="col-md-3">
+        <img src="{{ picture }}" class="avatar img-circle" alt="avatar">
+      </div>
+      <div class="col-md-9">
+        <h4 class="pull-right">$24.99</h4>
+        <h4>
+            <a href="/order?order_id={{order_id}}">{{title}}</a>
+        </h4>
+        <p><a href="/search?queryTerm={{ subject }}"><span class="subject">{{ subject }}</span></a></p>
+        <p class="post-comment">{{ comment}}</p>
+      <div class="ratings">
+          {% if (not hasSelectedTutor) and candidates | length %}
+            <p class="pull-right">{{ candidates|length }} candidates</p>
+          {% endif %}
+          <p>
+              <b>Student:</b> <a href="/userinfo?user_id={{ owner_id }}">{{ name }}</a>
+          </p>
+          {% if own_the_order %}
+          <p>
+              <b>Contact:</b> {{ email }}
+          </p>
+          {% endif %}
+      </div>
+      </div>
     </div>
 
     {% if showAlert %}
@@ -59,7 +64,7 @@
                 <div class="desc">
                   {% if own_the_order %}
                   <p>
-                      <b>Contact:</b> {{ email }}
+                      <b>Contact:</b> {{ selectedTutor['email'] }}
                   </p>
                   {% endif %}
                 </div>
@@ -94,6 +99,7 @@
                     <input type="submit" class="btn btn-primary pull-right" value="Accept" hidden></input>
                     <input type="hidden" value="{{ p['user_id'] }}" name="user_id">
                     <input type="hidden" value="{{ order_id }}" name="order_id">
+                    <input type="hidden" value="{{ return_url }}" name="return_url">
                   </form>
                   {% endif %}
                   <p>{{ p['intro'] }}</p>

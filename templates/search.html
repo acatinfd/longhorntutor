@@ -25,7 +25,7 @@
             <h3>
                 <a href="/order?order_id={{p.order_id}}">{{ p['title'] }}</a>
             </h3>
-            <span class="subject">{{ p['subject'] }}</span>
+            <p><a href="/search?queryTerm={{ p['subject'] }}"><span class="subject">{{ p['subject'] }}</span></a></p>
             <h6><strong>Posted by </strong><a href="/userinfo?user_id={{ p['user_id'] }}">{{ p['name'] }}</a></h6>
             <p class="post-comment">{{ p['comment'] }}</p>
           </div>

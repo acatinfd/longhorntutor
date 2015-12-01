@@ -35,10 +35,11 @@ class Order(webapp2.RequestHandler):
                 if order_info['candidates']:
                     for p in order_info['candidates']:
                         p['picture'] = getPictureURL(p['picture'])
-                        
+
+                order_info['picture'] = getPictureURL(order_info['picture'])
                 order_info['return_url'] = base + '/order?order_id=' + order_id
                 order_info['showAlert'] = self.request.get('showAlert')
-
+                order_info['logout_url'] = users.create_logout_url(self.request.uri)
                 template = JINJA_ENVIRONMENT.get_template('order.html')
                 self.response.write(template.render(order_info))
             else:

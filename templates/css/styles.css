@@ -20,6 +20,10 @@ nav li button {
   margin: 10px 10px;
 }
 
+a span {
+  margin-bottom: 10px;
+}
+
 #search-input {
   width: 260px;
 }
@@ -45,7 +49,6 @@ nav li button {
 img {
   max-width: 200px;
 }
-
 
 /*
 for profile

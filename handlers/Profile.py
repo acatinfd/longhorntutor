@@ -22,6 +22,7 @@ class Profile(webapp2.RequestHandler):
             data['picture'] = getPictureURL(data['picture'])
 
             data['showAlert'] = self.request.get('showAlert')
+            data['logout_url'] = users.create_logout_url(self.request.uri)
             template = JINJA_ENVIRONMENT.get_template('profile.html')
             self.response.write(template.render(data))
         else:

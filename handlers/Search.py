@@ -11,7 +11,7 @@ class Search(webapp2.RequestHandler):
         user = users.get_current_user()
         if user:
             base = GetPath(self.request.url, self.request.path)
-            query = self.request.get('queryTerm')
+            query = self.request.get('queryTerm').lower()
 
             r = requests.get(base + '/api/searchuser', params={'query': query})
             searchUsers = r.json()
@@ -26,8 +26,9 @@ class Search(webapp2.RequestHandler):
                 'user_id' : user.user_id(),
                 'searchUsers': searchUsers,
                 'searchResults': searchResults,
-                'return_url': base + '/order?order_id=', #TODO
+                'return_url': base,
                 'showAlert': showAlert,
+                'logout_url': users.create_logout_url(self.request.uri),
             }
 
             template = JINJA_ENVIRONMENT.get_template('search.html')
