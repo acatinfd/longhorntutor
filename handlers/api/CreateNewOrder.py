@@ -2,10 +2,11 @@ import webapp2
 import json
 from domain.Order import Order
 from handlers.helper.Messages import getAlertMessage
+from google.appengine.api import users
 
 class CreateNewOrder(webapp2.RequestHandler):
     def post(self):
-        owner_id = self.request.get('user_id')
+        owner_id = users.get_current_user().user_id()
         subject = self.request.get('subject')
         title = self.request.get('title')
         comment = self.request.get('comment')
@@ -18,3 +19,5 @@ class CreateNewOrder(webapp2.RequestHandler):
         self.response.write(json.dumps({'status_code': 0, 'key': key.id()}))
         if return_url:
             self.redirect(getAlertMessage(return_url, "A new post is created!"))
+        else:
+            self.redirect('/')
